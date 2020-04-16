@@ -1,0 +1,144 @@
+@import 'styles/variables.scss';
+
+.song {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: rgba(255, 255, 255, .6);
+  overflow: hidden;
+  .song-bg {
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1.5);
+    transform-origin: center top;
+    width: 100%;
+    height: 100%;
+    filter: blur(rpx(10));
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    &::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .3);
+    }
+  }
+  .song-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    // 头部
+    .song-header {
+      height: rpx(120);
+      display: flex;
+      align-items: center;
+      &>div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .left, .right {
+        width: rpx(100);
+        min-width: rpx(100);
+        height: 100%;
+        .iconfont {
+          font-size: rpx(36);
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+      .song-info {
+        flex-grow: 1;
+        flex-direction: column;
+        white-space: nowrap;
+        overflow: hidden;
+        .song-name {
+          width: 100%;
+          font-size: rpx(28);
+          color: rgba(255, 255, 255, 1);
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          text-align: center;
+        }
+        .song-artists {
+          font-size: rpx(24);
+        }
+      }
+    }
+    // 碟片
+    .disc {
+      $size: 70vw;
+      width: $size;
+      height: $size;
+      margin: 0 auto;
+      margin-top: rpx(200);
+      position: relative;
+      $needleSize: 200;
+      $originCenter: rpx($needleSize * 0.13);
+      &::before {
+        content: "";
+        display: block;
+        width: rpx($needleSize);
+        height: rpx($needleSize / 0.6438);
+        position: absolute;
+        left: 50%;
+        top: rpx(-164);
+        z-index: 1;
+        background-image: url('../assets/images/disc-needle.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center;
+        transform: translate(-$originCenter, 0) rotate(-30deg);
+        transform-origin: $originCenter $originCenter;
+        transition: all .3s;
+      }
+      .disc-picture {
+        width: 100%;
+        height: 100%;
+        background-image: url('../assets/images/disc.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+        padding: rpx(94);
+        animation-name: rotate;
+        animation-duration: 12s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-play-state: paused;
+        .author-img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          overflow: hidden;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+      &.active {
+        &::before {
+          transform: translate(-$originCenter, 0) rotate(0deg);
+        }
+        .disc-picture {
+          animation-play-state: running;
+        }
+      }
+    }
+    // 控制台
+    .controller {
+      position: absolute;
+      bottom: rpx(50);
+      @include safe-area-inset(padding-bottom, bottom);
+      padding-left: rpx($wrapperSpace);
+      padding-right: rpx($wrapperSpace);
+    }
+  }
+}

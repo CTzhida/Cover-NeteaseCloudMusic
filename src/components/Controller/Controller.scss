@@ -1,0 +1,75 @@
+@import 'styles/variables.scss';
+
+.controller {
+  width: 100%;
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    .drag-bar {
+      flex-grow: 1;
+      margin: 0 rpx(15);
+    }
+    .time {
+      $size: rpx(65);
+      width: $size;
+      min-width: $size;
+      max-width: $size;
+      white-space: nowrap;
+      font-size: rpx(18);
+      color: rgba(255, 255, 255, .5);
+      span {
+        position: relative;
+        top: rpx(1);
+      }
+      &.time-start {
+        text-align: right;
+      }
+      &.time-end {
+        text-align: left;
+      }
+      &.light {
+        color: white;
+      }
+    }
+  }
+  .controller-buttons {
+    margin-top: rpx(40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: rpx(100);
+    & > * {
+      width: 20%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .iconfont {
+        font-size: rpx(40);
+      }
+      .primary {
+        $primarySize: rpx(100);
+        width: $primarySize;
+        height: $primarySize;
+        border: rpx(2) solid rgba(255, 255, 255, .5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon-player-play {
+          position: relative;
+          left: rpx(5);
+        }
+        .icon-loading {
+          display: block;
+          animation-name: rotate;
+          animation-duration: 3s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-fill-mode: backwards;
+        }
+      }
+    }
+  }
+}

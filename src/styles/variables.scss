@@ -1,0 +1,21 @@
+$headerHeight: 90;
+
+$wrapperSpace: 24;
+
+@mixin safe-area-inset($propName, $position) {
+  #{$propName}: env(safe-area-inset-#{$position});
+  #{$propName}: constant(safe-area-inset-#{$position});
+}
+
+@function rpx ($style) {
+  @return $style / 100 + rem;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

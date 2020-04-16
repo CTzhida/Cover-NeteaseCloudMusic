@@ -1,0 +1,124 @@
+@import 'styles/variables.scss';
+$duration: .4s;
+
+#play-list-popup {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  transition: display 2s;
+  &.show {
+    .shadow {
+      background-color: rgba(0, 0, 0, .4);
+    }
+    .list-content {
+      transform: translate(0, 0);
+    }
+  }
+  .shadow {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color $duration;
+  }
+  .list-content {
+    position: absolute;
+    left: rpx($wrapperSpace);
+    right: rpx($wrapperSpace);
+    bottom: rpx($wrapperSpace * 2);
+    z-index: 1;
+    transform: translate(0, 150%);
+    transition: transform $duration;
+    height: 60vh;
+    border-radius: rpx(30);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    // 头部
+    .title {
+      padding: rpx(20) rpx($wrapperSpace);
+      display: flex;
+      align-items: center;
+      .name {
+        font-size: rpx(32);
+        letter-spacing: rpx(2);
+      }
+      .count {
+        align-self: flex-end;
+        color: #888888;
+        font-size: rpx(22);
+        padding-left: rpx(5);
+        position: relative;
+        top: rpx(-4);
+      }
+    }
+    // 列表
+    .pl-songs {
+      flex-grow: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-left: rpx($wrapperSpace);
+      .pl-song-item {
+        height: rpx(80);
+        border-bottom: rpx(2) solid #eeeeee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:last-child {
+          border-bottom: 0;
+        }
+        &.active {
+          color: #e44532;
+        }
+        .info {
+          flex-grow: 1;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          .icon-horn {
+            font-size: rpx(26);
+            margin-right: rpx(6);
+          }
+          .name {
+            font-size: rpx(26);
+          }
+          .artists {
+            font-size: rpx(20);
+            position: relative;
+            top: rpx(1);
+          }
+        }
+        .remove {
+          width: rpx(80);
+          min-width: rpx(80);
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .iconfont {
+            font-size: rpx(22);
+            color: #888888;
+          }
+        }
+      }
+    }
+    // 关闭
+    .close {
+      $height: rpx(90);
+      height: $height;
+      min-height: $height;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: rpx(2) solid #eeeeee;
+      font-size: rpx(30);
+      background-color: #fefefe;
+    }
+  }
+}

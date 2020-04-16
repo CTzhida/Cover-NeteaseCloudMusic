@@ -1,0 +1,16 @@
+@import 'styles/variables.scss';
+
+.loading {
+  text-align: center;
+  color: #888888;
+  font-size: rpx(24);
+  line-height: rpx(36);
+  .loading-svg {
+    $size: rpx(30);
+    width: $size;
+    height: $size;
+    stroke: #ff0000;
+    stroke-width: 12%;
+    margin: 0 rpx(15);
+  }
+}

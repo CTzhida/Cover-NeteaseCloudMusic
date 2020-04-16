@@ -1,0 +1,31 @@
+{
+  "short_name": "Music",
+  "name": "NeteaseCloudMusic Cover",
+  "icons": [
+    {
+      "src": "icons/128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "icons/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "icons/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "orientation": "portrait",
+  "display": "standalone",
+  "theme_color": "#e44532",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,55 @@
+@import 'styles/variables.scss';
+
+.input-picker {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  background-color: #efefef;
+  border-radius: rpx(50);
+  position: relative;
+  $leftPadding: rpx(60);
+  $fontsize: rpx(30);
+  .placeholder {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: $leftPadding;
+    color: #aaaaaa;
+    display: flex;
+    align-items: center;
+    transform: translate(0%, 0);
+    white-space: nowrap;
+    transition: all .15s;
+    .icon-search {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(rpx(-40), -50%);
+      font-size: $fontsize;
+    }
+  }
+  .icon-close-circle {
+    position: absolute;
+    top: 50%;
+    right: rpx(5);
+    transform: translate(0%, -50%);
+    color: #aaaaaa;
+    font-size: rpx(30);
+    padding: rpx(10);
+  }
+  form {
+    width: 100%;
+    input[type=search] {
+      width: 100%;
+      height: 100%;
+      font-size: $fontsize;
+      padding-left: $leftPadding;
+      padding-right: rpx(60);
+      appearance: none;
+      -webkit-appearance: none;
+      &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+}

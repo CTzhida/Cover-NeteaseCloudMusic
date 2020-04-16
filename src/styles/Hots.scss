@@ -1,0 +1,53 @@
+@import 'styles/variables.scss';
+
+  // 热搜
+  .hots {
+    padding: rpx(50) rpx($wrapperSpace) 0 rpx($wrapperSpace);
+    .hots-title {
+      font-size: rpx(26);
+      font-weight: bolder;
+      margin-bottom: rpx(30);
+    }
+    .hots-list {
+      display: flex;
+      flex-wrap: wrap;
+      .hots-item {
+        width: 49%; 
+        display: flex;
+        align-items: center;
+        margin-bottom: rpx(35);
+        margin-right: 2%;
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+        &:nth-child(-n+4) {
+          .order {
+            color: #e44532;
+          }
+        }
+        .order {
+          margin-right: rpx(18);
+          width: rpx(28);
+          text-align: center;
+          font-weight: 600;
+          color: #aaaaaa;
+          font-size: rpx(30);
+        }
+        .info {
+          flex-grow: 1;
+          width: 1px;
+          .name {
+            font-size: rpx(26);
+            margin-bottom: rpx(2);
+          }
+          .desc {
+            font-size: rpx(18);
+            color: #aaaaaa;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }

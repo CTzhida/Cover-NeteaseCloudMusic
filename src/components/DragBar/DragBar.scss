@@ -1,0 +1,43 @@
+@import 'styles/variables.scss';
+
+.drag-bar {
+  width: 100%;
+  height: rpx(4);
+  background: rgba(255, 255, 255, .5);
+  border-radius: rpx(50);
+  position: relative;
+  .bar {
+    width: 0%;
+    height: 100%;
+    background-color: white;
+    border-radius: rpx(50);
+  }
+  .ball {
+    $size: rpx(60);
+    width: $size;
+    height: $size;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::before {
+      content: "";
+      display: block;
+      width: 30%;
+      height: 30%;
+      background-color: white;
+      border-radius: 50%;
+      transition: width .15s, height .15s;
+    }
+  }
+}
+.drag-bar.active {
+  height: rpx(7);
+  .ball:before {
+    width: 40%;
+    height: 40%;
+  }
+}

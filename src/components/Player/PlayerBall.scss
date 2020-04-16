@@ -1,0 +1,66 @@
+@import 'styles/variables.scss';
+
+.player-ball {
+  position: relative;
+  z-index: 5;
+  .radius-ball {
+    $size: rpx(60);
+    width: $size;
+    height: $size;
+    position: relative;
+    border-radius: 50%;
+    background-color: #e44532;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .radius-ball-l,
+    .radius-ball-r {
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      background-color: #dddddd;
+    }
+    .radius-ball-l {
+      left: 0;
+      transform-origin: right center;
+      transform: rotate(0deg);
+    }
+    .radius-ball-r {
+      right: 0;
+      transform-origin: left center;
+      transform: rotate(0deg);
+      &.half {
+        background-color: #e44532;
+        z-index: 1;
+      }
+    }
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    width: 88%;
+    height: 88%;
+    border: rpx(4) solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    .cover {
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      animation-name: rotate;
+      animation-duration: 12s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-play-state: paused;
+    }
+    &.playing .cover {
+      animation-play-state: running;
+    }
+  }
+}

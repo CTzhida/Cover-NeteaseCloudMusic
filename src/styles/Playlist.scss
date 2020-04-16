@@ -1,0 +1,264 @@
+@import 'styles/variables.scss';
+
+.play-list {
+  @include safe-area-inset(padding-bottom, bottom);
+  // 加载
+  .loading {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  // 高斯模糊
+  .bg-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: rpx(400);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.5);
+    filter: blur(rpx(20));
+    overflow: hidden;
+    &::before {
+      content: "";
+      position: absolute; 
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.4);
+    }
+  }
+
+  // 头部
+  .play-list-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: rpx($headerHeight);
+    padding: 0 rpx($wrapperSpace);
+    overflow: hidden;
+    .name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: rpx(32);
+      z-index: 2;
+    }
+    .back {
+      $size: rpx(40);
+      width: $size;
+      height: $size;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      .iconfont {
+        font-size: rpx(32);
+      }
+    }
+  }
+
+  // 图片信息与名称
+  .list-head {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: rpx($headerHeight * 1.3) rpx($wrapperSpace) rpx($wrapperSpace * 2) rpx($wrapperSpace);
+    .content {
+      display: flex;
+      position: relative;
+      z-index: 2;
+      .cover {
+        $size: rpx(260);
+        width: $size;
+        min-width: $size;
+        max-width: $size;
+        height: $size;
+        position: relative;
+        &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,0));
+          z-index: 2;
+        }
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          z-index: 1;
+        }
+        .remd-count {
+          position: absolute;
+          top: rpx(4);
+          right: rpx(4);
+          z-index: 2;
+          color: white;
+          font-size: rpx(20);
+          display: flex;
+          align-items: center;
+          .iconfont {
+            font-size: inherit;
+            margin-right: rpx(6);
+          }
+        }
+      }
+      .desc {
+        flex-grow: 1;
+        margin-left: rpx(40);
+        color: white;
+        .playlist-name {
+          font-size: rpx(34);
+        }
+        .creator {
+          display: flex;
+          align-items: center;
+          margin-top: rpx(20);
+          .avatar {
+            $size: rpx(64);
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .nickname {
+            margin-left: rpx(10);
+            font-size: rpx(28);
+            color: #dddddd;
+          }
+        }
+      }
+    }
+  }
+
+  // Tags / 描述
+  .list-info {
+    position: relative;
+    z-index: 1;
+    padding: rpx($wrapperSpace);
+    color: #666666;
+    & > * {
+      margin-bottom: rpx($wrapperSpace);
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .info-name {
+      font-size: rpx(28);
+    }
+    .tags {
+      display: flex;
+      align-items: center;
+      li {
+        border: rpx(2) solid #dddddd;
+        font-size: rpx(22);
+        padding: rpx(3) rpx(10);
+        border-radius: rpx(50);
+        margin-right: rpx(10);
+        &:last-of-type {
+          margin-right: 0
+        }
+      }
+    }
+    .desc {
+      position: relative;
+      font-size: rpx(26);
+      &.thide {
+        .desc-content {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+        .desc-detail-btn {
+          .icon-arrow-up {
+            display: none;
+          }
+          .icon-arrow-down {
+            display: block;
+          }
+        }
+      }
+      .desc-detail-btn {
+        position: absolute;
+        bottom: rpx(-15);
+        right: 0;
+        .iconfont {
+          color: #aaaaaa;
+          font-size: rpx(24);
+        }
+        .icon-arrow-down {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // 列表
+  .pylist-list {
+    position: relative;
+    z-index: 1;
+    border-top: rpx(2) solid #dddddd;
+    .pylist-head {
+      padding: rpx($wrapperSpace);
+      position: sticky;
+      z-index: 1;
+      top: rpx($headerHeight);
+      background-color: white;
+      .all-play {
+        font-size: rpx(28);
+        display: flex;
+        align-items: center;
+        color: #444444;
+        .iconfont {
+          color: inherit;
+          display: inline-block;
+          $size: rpx(30);
+          width: $size;
+          height: $size;
+          border-radius: 50%;
+          border: rpx(2) solid black;
+          font-size: rpx(14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: rpx(14);
+          &::before {
+            position: relative;
+            left: rpx(1);
+            top: rpx(2);
+          }
+        }
+      }
+    }
+    .songs .song-item {
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    .songs {
+      padding-left: rpx($wrapperSpace);
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "id": "1678911",
+  "name": "MyMusic",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11903696",
+      "name": "earphone",
+      "font_class": "earphone",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "10156373",
+      "name": "喇叭",
+      "font_class": "horn",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "1290296",
+      "name": "Close",
+      "font_class": "close",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "3248603",
+      "name": "loading",
+      "font_class": "loading",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2154283",
+      "name": "单曲循环_32",
+      "font_class": "single-cycle",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "2154280",
+      "name": "随机播放_32",
+      "font_class": "random-cycle",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "2154282",
+      "name": "循环播放_32",
+      "font_class": "list-cycle",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "6378605",
+      "name": "播放列表",
+      "font_class": "player-list",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "4933557",
+      "name": "pause",
+      "font_class": "player-pause",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "5504388",
+      "name": "play-prev-1",
+      "font_class": "player-prev",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "5634294",
+      "name": "play",
+      "font_class": "player-play",
+      "unicode": "f07e",
+      "unicode_decimal": 61566
+    },
+    {
+      "icon_id": "13839180",
+      "name": "play-prev-1",
+      "font_class": "player-next",
+      "unicode": "f07f",
+      "unicode_decimal": 61567
+    },
+    {
+      "icon_id": "11741019",
+      "name": "arrow_left",
+      "font_class": "arrow-left",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "14068574",
+      "name": "arrow_left",
+      "font_class": "arrow-down",
+      "unicode": "f080",
+      "unicode_decimal": 61568
+    },
+    {
+      "icon_id": "14068654",
+      "name": "arrow_left",
+      "font_class": "arrow-up",
+      "unicode": "f081",
+      "unicode_decimal": 61569
+    },
+    {
+      "icon_id": "1112713",
+      "name": "close",
+      "font_class": "close-circle",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "462793",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "1250137",
+      "name": "我的",
+      "font_class": "mine",
+      "unicode": "e702",
+      "unicode_decimal": 59138
+    },
+    {
+      "icon_id": "1567580",
+      "name": "music",
+      "font_class": "music",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    }
+  ]
+}

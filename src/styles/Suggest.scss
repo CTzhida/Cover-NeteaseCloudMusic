@@ -1,0 +1,32 @@
+@import 'styles/variables.scss';
+
+// 搜索建议
+.search-suggest {
+  .search-target {
+    padding: rpx(22) rpx($wrapperSpace);
+    border-bottom: rpx(2) solid #eeeeee;
+    color: #56739f;
+    font-size: rpx(28);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .search-suggest-list {
+    .list-item {
+      padding-left: rpx($wrapperSpace);
+      display: flex;
+      align-items: center;
+      .iconfont.icon-search {
+        font-size: rpx(30);
+        color: #bbbbbb;
+      }
+      .name {
+        font-size: rpx(26);
+        flex-grow: 1;
+        margin-left: rpx(20);
+        padding: rpx(22) 0;
+        border-bottom: rpx(2) solid #eeeeee;
+      }
+    }
+  }
+}

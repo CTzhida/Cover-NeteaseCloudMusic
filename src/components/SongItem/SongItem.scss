@@ -1,0 +1,67 @@
+@import 'styles/variables.scss';
+
+.song-item {
+  border-bottom: rpx(2) solid #eeeeee;
+  padding: rpx(18) 0;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  .song-item-info {
+    width: 1px;
+    flex-grow: 1;
+    .hightlight {
+      color: #56739f;
+    }
+    .name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: rpx(28);
+      color: black;
+    }
+    .info {
+      font-size: rpx(22);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      span {
+        vertical-align: middle;
+      }
+      .label {
+        color: #e44532;
+        display: inline-block;
+        vertical-align: middle;
+        border: rpx(2) solid #e44532;
+        width: rpx(24);
+        height: rpx(14);
+        font-size: rpx(12);
+        border-radius: rpx(4);
+        margin-right: rpx(6);
+        text-align: center;
+      }
+    }
+    .alias {
+      font-size: rpx(22);
+    }
+  }
+  .play {
+    margin-right: rpx(30);
+    margin-left: rpx(10);
+    border: rpx(2) solid #aaaaaa;
+    color: #aaaaaa;
+    min-width: rpx(40);
+    width: rpx(40);
+    height: rpx(40);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    .iconfont {
+      font-size: rpx(16);
+      position: relative;
+      top: rpx(1);
+      left: rpx(2);
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@import 'styles/variables.scss';
+
+.search {
+  position: fixed;
+  top: rpx($headerHeight);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @include safe-area-inset(padding-bottom, bottom);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  .songs {
+    padding-left: rpx($wrapperSpace);
+  }
+  .loading {
+    padding: rpx(50) 0;
+  }
+  .bottom-site {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: rpx(100);
+    .no-more {
+      font-size: rpx(24);
+      color: #888888;
+    }
+  }
+  .no-result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    color: #888888;
+  }
+}
