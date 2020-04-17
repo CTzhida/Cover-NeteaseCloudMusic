@@ -1,6 +1,6 @@
 import React, { Fragment, forwardRef, ForwardRefRenderFunction, useImperativeHandle, memo, useState, MouseEvent, useEffect } from 'react';
 import ReactDom from 'react-dom';
-import './PlayList.scss';
+import './Songlist.scss';
 import Music from 'components/Player/Music';
 import player from 'components/Player';
 import { PlayerEventType, PlayerUnSubscribeHandler } from 'components/Player/types';
@@ -8,17 +8,17 @@ import { useHistory } from 'react-router';
 
 
 const wrapper: HTMLElement = document.createElement('div');
-wrapper.id = 'play-list-popup';
+wrapper.id = 'song-list-popup';
 document.body.appendChild(wrapper);
 
-interface IPlayListProps {}
+interface ISonglistProps {}
 
-export interface IPlayListHandles {
+export interface ISongListHandles {
   hide (): void;
   show (): void;
 }
 
-const PlayList: ForwardRefRenderFunction<IPlayListHandles, IPlayListProps> = (props, ref) => {
+const Songlist: ForwardRefRenderFunction<ISongListHandles, ISonglistProps> = (props, ref) => {
 
   const history = useHistory();
 
@@ -83,7 +83,16 @@ const PlayList: ForwardRefRenderFunction<IPlayListHandles, IPlayListProps> = (pr
         history.goBack();
       });
     }
-    player.remove(id);
+    player.remove([id]);
+  };
+
+  // 删除全部
+  const handleMusicClear = () => {
+    hide().then(() => {
+      history.goBack();
+    });
+    const ids = list.map((music: Music) => music.id);
+    player.remove(ids);
   };
 
   useImperativeHandle(ref, () => ({
@@ -97,13 +106,18 @@ const PlayList: ForwardRefRenderFunction<IPlayListHandles, IPlayListProps> = (pr
         <div className="shadow" onClick={handleShadowClick}></div>
         <div className="list-content">
           <div className="title">
-            <span className="name">当前播放</span>
-            <span className="count">({ list.length })</span>
+            <span>
+              <span className="name">当前播放</span>
+              <span className="count">({ list.length })</span>
+            </span>
+            <span className="delete" onClick={handleMusicClear}>
+              <i className="iconfont icon-delete"></i>
+            </span>
           </div>
-          <ul className="pl-songs">
+          <ul className="sl-songs">
             {
               list.map((music: Music) => (
-                <li key={music.id} className={`pl-song-item ${ currentId === music.id ? 'active' : '' }`} onClick={() => { handleMusicClick(music); }}>
+                <li key={music.id} className={`sl-song-item ${ currentId === music.id ? 'active' : '' }`} onClick={() => { handleMusicClick(music); }}>
                   <div className="info">
                     { currentId === music.id && <i className="iconfont icon-horn"></i> }
                     <span className="name">{ music.data.name }</span>
@@ -124,4 +138,4 @@ const PlayList: ForwardRefRenderFunction<IPlayListHandles, IPlayListProps> = (pr
   );
 };
 
-export default memo(forwardRef(PlayList));
+export default memo(forwardRef(Songlist));

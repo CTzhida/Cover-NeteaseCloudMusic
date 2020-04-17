@@ -1,7 +1,7 @@
 @import 'styles/variables.scss';
 $duration: .4s;
 
-#play-list-popup {
+#song-list-popup {
   position: fixed;
   left: 0;
   right: 0;
@@ -43,6 +43,7 @@ $duration: .4s;
       padding: rpx(20) rpx($wrapperSpace);
       display: flex;
       align-items: center;
+      justify-content: space-between;
       .name {
         font-size: rpx(32);
         letter-spacing: rpx(2);
@@ -55,14 +56,23 @@ $duration: .4s;
         position: relative;
         top: rpx(-4);
       }
+      .delete {
+        display: inline-block;
+        vertical-align: middle;
+        width: rpx(50);
+        height: rpx(50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     // 列表
-    .pl-songs {
+    .sl-songs {
       flex-grow: 1;
       overflow-x: hidden;
       overflow-y: auto;
       padding-left: rpx($wrapperSpace);
-      .pl-song-item {
+      .sl-song-item {
         height: rpx(80);
         border-bottom: rpx(2) solid #eeeeee;
         display: flex;

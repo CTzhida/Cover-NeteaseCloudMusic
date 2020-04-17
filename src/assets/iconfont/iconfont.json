@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1160129",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
       "icon_id": "11903696",
       "name": "earphone",
       "font_class": "earphone",

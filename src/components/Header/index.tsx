@@ -37,10 +37,14 @@ function Header (props: IHeaderProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getSearchDefault().then(result => {
+    const [request, canceler] = getSearchDefault();
+    request?.then(result => {
       const { data, code } = result.data;
       if (code === 200 && data.realkeyword) setPlaceholder(data.realkeyword);
     });
+    return () => {
+      canceler && canceler();
+    };
   }, []);
 
   const handleCancelBtn: MouseEventHandler = function (): void {

@@ -9,6 +9,9 @@ import 'scripts/rem';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
+// import VConsole from 'vconsole';
+// new VConsole();
+
 ReactDOM.render(
   (
     <Provider store={store}>
@@ -17,6 +20,5 @@ ReactDOM.render(
   ), 
   document.getElementById('root')
 );
-
 
 serviceWorker.unregister();

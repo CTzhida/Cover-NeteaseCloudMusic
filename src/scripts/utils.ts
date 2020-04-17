@@ -19,3 +19,7 @@ export const getPercent = (current: number, total: number): number => {
   if (current === 0) return 0;
   return parseFloat((current / total * 100).toFixed(2));
 };
+
+export const displayPlayCount = (playCount: number): string => {
+  return parseFloat((playCount / 10000).toFixed(2)) + '万';
+};

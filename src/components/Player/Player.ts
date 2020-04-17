@@ -135,7 +135,8 @@ class Player {
     if (this.currentId === null) {
       return null;
     } else {
-      return this.list.find((music: Music) => music.id === this.currentId) || null;
+      const music = this.list.find((music: Music) => music.id === this.currentId);
+      return music || null;
     }
   }
 
@@ -161,16 +162,19 @@ class Player {
   }
 
   // 删除音乐
-  remove (id: number) {
-    if (!this.has(id)) return false;
-    if (id === this.currentId) {
-      this.list.length === 1 ? this.switch(null) : this.next(this.isPlaying);
-    }
-    const removeIdx = this.list.findIndex((music: Music) => music.id === id);
-    this.list.splice(removeIdx, 1);
+  remove (ids: Array<number>) {
+    const rmIds = ids.filter((id: number) => this.has(id));
+    if (rmIds.length === 0) return;
+    rmIds.forEach((id: number) => {
+      const rmIdx = this.list.findIndex((music: Music) => music.id === id);
+      this.list.splice(rmIdx, 1);
+    });
     this.refreshRandomList();
     playerStorage.saveList(this.list.map((music: Music) => music.id));
     this.handleListeners(PlayerEventType.LIST_CHANGE);
+    if (this.currentId && rmIds.includes(this.currentId)) {
+      this.list.length ? this.next(this.isPlaying) :  this.switch(null);
+    }
   }
 
   // 设置进度条
@@ -182,8 +186,11 @@ class Player {
   // 播放
   play () {
     if (this.isPlaying || !this.current?.src) return false;
-    this.audio.play().catch(() => {
-      console.log('浏览器禁止自动播放');
+    this.audio.play().catch((err) => {
+      this.handleListeners(PlayerEventType.ERROR, {
+        type: PlayerErrorType.CANNOT_AUTO_PLAY,
+        detail: err.message
+      });
     });
   }
 
@@ -209,7 +216,6 @@ class Player {
       } else {
         this.currentId = id;
         this.current?.ready().then((music: Music) => {
-          // console.log(music);
           if (music.src) {
             this.audio.src = music.src;
             this.handleListeners(PlayerEventType.MUSIC_INFO_UPDATE, music);
@@ -218,7 +224,7 @@ class Player {
             this.handleListeners(PlayerEventType.MUSIC_INFO_UPDATE, music);
             this.handleListeners(PlayerEventType.ERROR, {
               type: PlayerErrorType.SRC_NO_EXIST,
-              detail: null
+              detail: music.id
             });
             reject();
           }
@@ -300,7 +306,7 @@ class Player {
 
   // 执行事件订阅
   private handleListeners (eventType: PlayerEventType, ...payload: Array<any>): void {
-    setTimeout(() => {
+    new Promise(resolve => resolve()).then(() => {
       const set = this.listeners.get(eventType);
       if (set) {
         set.forEach((handler: PlayerEventHandler) => {

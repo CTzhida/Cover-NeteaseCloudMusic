@@ -7,11 +7,9 @@ import { getSearchStorageAction, getSearchQueryAction } from 'store/modules/sear
 import Loading from 'components/Loading';
 import Songs from './Songs';
 import { querySearchMusic } from 'api/search';
-import axios, { Canceler } from 'axios';
 import 'styles/Search.scss';
 import Toast from 'components/Toast';
-
-let searchRequestCancel: Canceler | null;
+import { Canceler } from 'axios';
 
 interface ISearchProps extends RouteChildrenProps {
   songs: Array<SongItemType>,
@@ -28,6 +26,8 @@ interface ISearchState {
   isSearching: boolean;
 }
 
+let searchRequestCancel: Canceler | null;
+
 // 是否重置了搜索
 let isReseted: boolean;
 
@@ -40,8 +40,7 @@ class Search extends Component<ISearchProps, ISearchState> {
 
     const urlSearch = new URLSearchParams(props.location.search);
     const query = urlSearch.get('query') || '';
-
-    if (query !== props.searchQuery) {
+    if (query !== props.searchQuery || props.history.action === 'PUSH') {
       isReseted = true;
     } else {
       isReseted = false;
@@ -97,13 +96,10 @@ class Search extends Component<ISearchProps, ISearchState> {
     const keywords = this.state.query;
     const limit = 25;
     const { offset } = this.props;
-    const requestOptions = {
-      cancelToken: new axios.CancelToken((cancel: Canceler) => {
-        searchRequestCancel = cancel;
-      })
-    };
     // console.log(`请求${offset}页的数据`);
-    const { data } = await querySearchMusic({ keywords, limit, offset }, requestOptions);
+    const [ request, canceler ] = querySearchMusic({ keywords, limit, offset });
+    searchRequestCancel = canceler;
+    const { data } = await request;
     if (data.code === 200) {
       const { songs, songCount } = data.result;
       // console.log(data.result.songs);
@@ -120,7 +116,6 @@ class Search extends Component<ISearchProps, ISearchState> {
   }
 
   handleSelectSong (item: SongItemType) {
-    scrollTopSession = this.wrapperRef.current?.scrollTop || null;
     if (item.fee === 1) {
       Toast.info('该歌曲无法试听');
     } else {
@@ -129,6 +124,7 @@ class Search extends Component<ISearchProps, ISearchState> {
   }
 
   componentWillUnmount () {
+    scrollTopSession = this.wrapperRef.current?.scrollTop || null;
     if (searchRequestCancel !== null) searchRequestCancel();
     searchRequestCancel = null; 
   }
@@ -149,7 +145,6 @@ class Search extends Component<ISearchProps, ISearchState> {
     );
   }
 }
-
 
 const mapStateToProps = (state: AppState) => {
   return {

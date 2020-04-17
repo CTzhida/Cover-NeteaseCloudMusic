@@ -33,21 +33,23 @@ function HotsItem (props: IHotsItemProps) {
 }
 
 
-let dataRequest: boolean = false;
+let dataRequested: boolean = false;
+
 function Hots () {
-  // console.log('Hots render');
   const hots: Array<IHotsItem> = useSelector((state: AppState) => state.search.hots);
-
   const dispatch = useDispatch();
-
   useEffect(() => {
-    if (dataRequest) return;
-    dataRequest = true;
-    getSearchHotDetail().then(result => {
+    if (dataRequested) return;
+    dataRequested = true;
+    const [ request, canceler ] = getSearchHotDetail();
+    request.then(result => {
       const { data, code } = result.data;
       if (code !== 200) return;
       dispatch(getSearchHotsAction(data));
     });
+    return () => {
+      canceler && canceler();
+    };
   }, [dispatch]);
 
   return (

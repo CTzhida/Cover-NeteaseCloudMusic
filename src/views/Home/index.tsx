@@ -10,6 +10,7 @@ import SongItem from 'components/SongItem';
 import { getNewSong, getPersonalized } from 'api/song';
 import { getNewSongsAction, getRemdSongsAction } from 'store/modules/song/action';
 import Toast from 'components/Toast';
+import { displayPlayCount } from 'scripts/utils';
 
 import 'styles/Home.scss';
 
@@ -33,7 +34,8 @@ const Main = memo(function () {
     if (dataRequested) return;
     dataRequested = true;
     // 最新音乐
-    getNewSong().then(res => {
+    const [ songRequest, songCanceler ] = getNewSong();
+    songRequest.then(res => {
       const { data } = res;
       const {result, code} = data;
       if (code !== 200) return;
@@ -49,14 +51,22 @@ const Main = memo(function () {
       const action = getNewSongsAction(list);
       dispatch(action);
     });
+
+
     // 推荐歌单
-    getPersonalized(6).then(res => {
+    const [ personalizedRequest, personalizedCanceler ] = getPersonalized(6);
+    personalizedRequest.then(res => {
       const { data } = res;
       const {result, code} = data;
       if (code !== 200) return;
       const action = getRemdSongsAction(result);
       dispatch(action);
     });
+
+    return () => {
+      songCanceler && songCanceler();
+      personalizedCanceler && personalizedCanceler();
+    };
   }, [dispatch]);
 
   const history = useHistory();
@@ -81,10 +91,10 @@ const Main = memo(function () {
           remds.map((remd: IRemdSong) => (
             <li key={remd.id} className="remd-item" onClick={() => handlePlaylistSelect(remd)}>
               <div className="cover">
-                <img src={remd.picUrl} alt=""/>
+                <img src={`${remd.picUrl}?param=120y120`} alt=""/>
                 <span className="remd-count">
                   <i className="iconfont icon-earphone"></i>
-                  <span>252.5万</span>
+                  <span>{ displayPlayCount(remd.playCount) }</span>
                 </span>
               </div>
               <div className="name">{remd.name}</div>

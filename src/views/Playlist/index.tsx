@@ -10,6 +10,7 @@ import player from 'components/Player';
 import { PlayerPlayOrder } from 'components/Player/types';
 import PlayerBall from 'components/Player/PlayerBall';
 import Toast from 'components/Toast';
+import { displayPlayCount } from 'scripts/utils';
 
 const displayDesc = (context: string): ReactNode => {
   const reg: RegExp = /([\n\r])/g;
@@ -27,12 +28,13 @@ const displayDesc = (context: string): ReactNode => {
 const BgCover = (props: {cover:string;}) => {
   const [ loaded, setLoaded ] = useState<boolean>(false);
   let img = document.createElement('img');
-  img.src = props.cover;
+  const src = props.cover;
+  img.src = src;
   img.onload = () => {
     setLoaded(true);
   };
   return (
-    loaded ? <div className="bg-cover" style={{backgroundImage: `url(${props.cover})`}}></div> : <div></div>
+    loaded ? <div className="bg-cover" style={{backgroundImage: `url(${src})`}}></div> : <div></div>
   );
 };
 
@@ -50,6 +52,7 @@ type PyListData = {
   desc: string;
   list: Array<SongItemType>;
   creator: Creator;
+  playCount: number;
 }
 
 // 缓存数据避免返回该页时又重新获取了
@@ -87,16 +90,17 @@ function Playlist () {
 
   useEffect(() => {
     if (!id || id === storageRequestData.id) return;
-    getPlaylistDetail(id).then(res => {
+    const [ request, canceler ] = getPlaylistDetail(id);
+    request.then(res => {
       const { data } = res;
       const { code, playlist } = data;
       if (code !== 200) return;
-      const cover: string = playlist.coverImgUrl;
+      const cover: string = `${playlist.coverImgUrl}??param=120y120`;
       const name: string = playlist.name;
       const creator: Creator = {
         id: playlist.creator.userId,
         nickname: playlist.creator.nickname,
-        avatar: playlist.creator.avatarUrl,
+        avatar: `${playlist.creator.avatarUrl}?param=50y50`,
         vipType: playlist.creator.vipType
       };
       const tags: Array<string> = playlist.tags;
@@ -111,14 +115,18 @@ function Playlist () {
         fee: song.fee,
         st: song.st
       }));
+      const playCount: number = playlist.playCount;
       const thide = playlist.description.split(/([\n\r])/g).length > 3;
-      const pyListData = { cover, name, creator, tags, desc, list };
+      const pyListData = { cover, name, creator, tags, desc, list, playCount};
       setTHide(thide);
       setPyListData(pyListData);
       storageRequestData.id = id;
       storageRequestData.thide = thide;
       storageRequestData.pyListData = pyListData;
     });
+    return () => {
+      canceler && canceler();
+    };
   }, [id]);
 
   // 播放单曲
@@ -137,15 +145,14 @@ function Playlist () {
     pyListData.list.forEach((e: { id: number, fee: number}) => {
         if (e.fee !==1) ids.push(e.id);
     });
+    if (ids.length === 0) return;
     player.add(ids);
-    let id: number;
     if (player.playOrder === PlayerPlayOrder.RANDOM) {
-      const rId: number = Math.floor(Math.random() * ids.length);
-      id = rId;
+      const rIdx: number = Math.floor(Math.random() * ids.length);
+      history.push(`/song?id=${ids[rIdx]}`);
     } else {
-      id = ids[0];
+      history.push(`/song?id=${ids[0]}`);
     }
-    history.push(`/song?id=${id}`);
   };
 
   // 显示 / 隐藏描述
@@ -173,7 +180,7 @@ function Playlist () {
                 <img src={pyListData.cover} alt=""/>
                 <span className="remd-count">
                   <i className="iconfont icon-earphone"></i>
-                  <span>252.5万</span>
+                  <span>{ displayPlayCount(pyListData.playCount) }</span>
                 </span>
               </div>
               <div className="desc">
@@ -181,7 +188,7 @@ function Playlist () {
                 {
                   pyListData.creator &&
                   <div className="creator">
-                    <div className="avatar"><img src={pyListData.creator.avatar} alt=""/></div>
+                    <div className="avatar"><img src={`${pyListData.creator.avatar}`} alt=""/></div>
                     <span className="nickname">{pyListData.creator.nickname}</span>
                   </div>
                 }

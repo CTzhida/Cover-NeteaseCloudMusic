@@ -27,12 +27,12 @@ interface IData {
   src: string;
 }
 const getData = (ids: Array<number>) => new Promise<Array<IData>>((resolve, reject) => {
-  Promise.all([getSongDetail(ids), getSongUrl(ids)]).then(res => {
+  Promise.all([getSongDetail(ids)[0], getSongUrl(ids)[0]]).then(res => {
     const [songDetail, songUrl] = res;
     if (songDetail.data.code !== 200 || songUrl.data.code !== 200) return;
     const data: Array<MusicInfo> = songDetail.data.songs.map((e: any) => {
       const name = e.name;
-      const picture = e.al.picUrl;
+      const picture = `${e.al.picUrl}?param=180y180`;
       const artists = e.ar.map((artist: { name: string }) => artist.name).join('/');
       const id = e.id;
       return { name, picture, artists, id };
@@ -57,7 +57,6 @@ class Music {
 
   static readyAll (musicList: Array<Music>) {
     const list = musicList.filter((music: Music) => music.status === MusicStatus.PENDING);
-
     return new Promise((resolve, reject) => {
       const ids = list.map((music: Music) => {
         music.status = MusicStatus.LOADING;

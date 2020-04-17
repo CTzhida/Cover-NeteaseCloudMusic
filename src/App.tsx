@@ -1,37 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Loading from 'components/Loading';
 
-import Header from 'components/Header';
-import Home from 'views/Home';
-import Search from 'views/Search';
-import Song from 'views/Song';
-import Playlist from 'views/Playlist';
 
-import player from './components/Player';
-import { PlayerEventType } from 'components/Player/types';
-import Music from 'components/Player/Music';
+const Header = lazy(() => import('components/Header'));
+const PlayerEffect = lazy(() => import('components/PlayerEffect'));
+const Home = lazy(() => import('views/Home'));
+const Search = lazy(() => import('views/Search'));
+const Song = lazy(() => import('views/Song'));
+const Playlist = lazy(() => import('views/Playlist'));
 
 function App () {
-  // 订阅歌名 <=> 网页标题
-  useEffect(() => {
-    const unsubscribe = player.subscribe(PlayerEventType.MUSIC_INFO_UPDATE, (music: null | Music) => {
-      const defualtTitle: string = process.env.REACT_APP_TITLE || '';
-      const musicName: string | null | undefined = music?.data.name;
-      document.title = musicName || defualtTitle;
-    });
-    return () => {
-      unsubscribe();
-      document.title = process.env.REACT_APP_TITLE || '';
-    };
-  }, []);
   return (
-    <Router>
-      <Header/>
-      <Route path="/" component={Home} exact/>
-      <Route path="/search" component={Search} />
-      <Route path="/song" component={Song} />
-      <Route path="/playlist" component={Playlist} />
-    </Router>
+    <Suspense fallback={<Loading className="component-fallback"/>} >
+      <Router>
+        <Header/>
+        <Route path="/" component={Home} exact/>
+        <Route path="/search" component={Search} />
+        <Route path="/song" component={Song} />
+        <Route path="/playlist" component={Playlist} />
+        <Route path="*" component={PlayerEffect}/>
+      </Router>
+    </Suspense>
   );
 }
 

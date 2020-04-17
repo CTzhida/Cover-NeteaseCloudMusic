@@ -1,5 +1,5 @@
 import React, { Fragment, memo, useState, useRef, RefObject, useEffect, MouseEventHandler } from 'react';
-import PlayList, { IPlayListHandles } from 'components/PlayList';
+import Songlist, { ISongListHandles } from 'components/Songlist';
 import player  from 'components/Player';
 import { PlayerPlayOrder, PlayerEventType, PlayerUnSubscribeHandler } from 'components/Player/types';
 import Progress from './Progress';
@@ -11,7 +11,7 @@ function Controller() {
 
   const [playOrder, setPlayOrder] = useState<PlayerPlayOrder>(player.playOrder);
 
-  const playListRef: RefObject<IPlayListHandles> = useRef(null);
+  const songlistRef: RefObject<ISongListHandles> = useRef(null);
 
   useEffect(() => {
     const unsubscribePlay: PlayerUnSubscribeHandler = player.subscribe(PlayerEventType.PLAY, () => {
@@ -57,8 +57,8 @@ function Controller() {
   };
 
   // 查看播放列表
-  const handlePlayList: MouseEventHandler = (): void => {
-    playListRef?.current?.show();
+  const handleSonglist: MouseEventHandler = (): void => {
+    songlistRef?.current?.show();
   };
 
   // 修改播放顺序
@@ -104,12 +104,12 @@ function Controller() {
           <li onClick={handlePlayerNext}>
             <i className="iconfont icon-player-next"></i>
           </li>
-          <li onClick={handlePlayList}>
+          <li onClick={handleSonglist}>
             <i className="iconfont icon-player-list"></i>
           </li>
         </ul>
       </div>
-      <PlayList ref={playListRef}/> 
+      <Songlist ref={songlistRef}/> 
     </Fragment>
   );
 }

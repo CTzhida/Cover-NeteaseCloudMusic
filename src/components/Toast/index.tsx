@@ -2,12 +2,23 @@ import React, { createRef, RefObject } from 'react';
 import ReactDOM from 'react-dom';
 import Toast, { ToastHandles } from './Toast';
 
-let div: HTMLElement | null = document.getElementById('ui-toast');
-if (div === null) {
-  div = document.createElement('div');
-  div.id = 'ui-toast';
-  document.body.appendChild(div);
-}
+const UI_TOAST_ID = 'ui-toast';
+
+const removeElement = () => {
+  let toast = document.getElementById(UI_TOAST_ID);
+  if (toast !== null) {
+    document.body.removeChild(toast);
+  }
+};
+
+const createElement = () => {
+  let oldToast = document.getElementById(UI_TOAST_ID);
+  if (oldToast !== null) return oldToast;
+  let toast = document.createElement('div');
+  toast.id = UI_TOAST_ID;
+  document.body.appendChild(toast);
+  return toast;
+};
 
 type ConfigOptions = {
   duration?: number;
@@ -32,7 +43,10 @@ const notification: Notification = {
   visiable: false,
   timer: null,
   notice (message: string, duration: number, mask: boolean) {
+    const div = createElement();
+
     this.instance = createRef();
+
     ReactDOM.render(<Toast ref={this.instance} message={message} mask={mask} />, div, () => {
       if (this.timer !== null) {
         clearTimeout(this.timer);
@@ -54,6 +68,7 @@ const notification: Notification = {
       this.timer = null;
     };
     if (this.instance) this.instance.current?.hide();
+    removeElement();
     this.visiable = false;
   }
 };

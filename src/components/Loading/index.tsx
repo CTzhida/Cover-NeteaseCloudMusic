@@ -11,7 +11,8 @@ const iconHeights: Array<Array<string>> = [
 ];
 
 interface ILoadingProps {
-  children: ReactElement<any>
+  children?: ReactElement<any>
+  className?: string;
 }
 
 let initCurrent: number = 0;
@@ -37,7 +38,7 @@ function Loading (props: ILoadingProps) {
   }, [current]);
   
   return (
-    <div className="loading">
+    <div className={`loading ${props.className || ''}`}>
       <svg className="loading-svg">
         <line x1="7%" y1="100%" x2="7%" y2={heights[0]}></line>
         <line x1="37%" y1="100%" x2="37%" y2={heights[1]}></line>

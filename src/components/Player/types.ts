@@ -13,6 +13,7 @@ export enum PlayerEventType {
 export enum PlayerErrorType {
   AUDIO_ERROR = 'audioError', // audio对象抛出来的
   SRC_NO_EXIST = 'srcNoExist', // 歌曲没有src
+  CANNOT_AUTO_PLAY = 'cannotAutoPlay', // 禁止自动播放
 }
 
 export type PlayerError = {

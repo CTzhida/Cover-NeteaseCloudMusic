@@ -1,5 +1,4 @@
 import axios from 'api';
-import { AxiosRequestConfig } from 'axios';
 
 
 interface IQuerySearchMusicParams {
@@ -16,11 +15,10 @@ interface IQuerySearchMusicParams {
  * @param offset 索引位置
  * @param type 搜索类型(详见文档)
  */
-export const querySearchMusic = ({ keywords, limit, offset, type = 1 }: IQuerySearchMusicParams, meta?: AxiosRequestConfig) => axios({
+export const querySearchMusic = ({ keywords, limit, offset, type = 1 }: IQuerySearchMusicParams) => axios({
   url: '/search',
   method: 'get',
-  params: { keywords, limit, offset, type },
-  ...meta
+  params: { keywords, limit, offset, type }
 });
 
 /**
@@ -28,14 +26,13 @@ export const querySearchMusic = ({ keywords, limit, offset, type = 1 }: IQuerySe
  * @param keywords 搜索关键字
  * @param meta Axios Config Object
  */
-export const getSearchSuggest = (keywords: string, meta?: AxiosRequestConfig) => axios({
+export const getSearchSuggest = (keywords: string) => axios({
   url: '/search/suggest',
   method: 'get',
   params: {
     type: 'mobile',
     keywords
-  },
-  ...meta
+  }
 });
 
 

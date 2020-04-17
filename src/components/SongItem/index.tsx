@@ -23,7 +23,7 @@ function SongItem (props: ISongsProps) {
   return (
     <div className="song-item" onClick={() => { props.onSelect(data); }}>
       <div className="song-item-info">
-        <div className="name">{ query ? highlightKeywords(data.name, query) : data.name } { data.st?.toString() || '' }</div>
+        <div className="name">{ query ? highlightKeywords(data.name, query) : data.name }</div>
         <div className="info">
           { data.fee === 1 && <span className="label">VIP</span> }
           <span className="artists">{ getArtistsName(data.artists, query) }</span>

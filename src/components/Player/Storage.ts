@@ -10,6 +10,7 @@ class PlayerStorage {
     const playOrder = localStorage.getItem(PLAYER_PLAYORDER);
 
     this.list = list === null ? [] : JSON.parse(list);
+    // this.list = [];
     this.playOrder = playOrder === null ? null : PlayerPlayOrder[playOrder as PlayerPlayOrder];
   }
 

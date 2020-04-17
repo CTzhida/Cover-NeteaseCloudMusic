@@ -7,6 +7,7 @@ import Music from 'components/Player/Music';
 import 'styles/Song.scss';
 import { useHistory } from 'react-router';
 import Toast from 'components/Toast';
+import Modal from 'components/Modal';
 
 function Song () {
   const idString: string | null = useQuery().get('id');
@@ -23,6 +24,8 @@ function Song () {
 
   const [picture, setPicture] = useState<string>('');
 
+  const [listLength, setListLength] = useState<number>(player.getList().length);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -32,19 +35,42 @@ function Song () {
       player.switch(id).then(() => {
         player.play();
       });
+      Toast.info('已添加到播放列表');
     } else if (player.currentId === id) {
-      // console.log('有音乐，并且是当前音乐');
+      // console.log('已存在该音乐，并且是当前音乐');
       setName(player.current?.data.name || '');
       setArtists(player.current?.data.artists || '');
       setPicture(player.current?.data.picture || '');
       if (player.isPlaying === false) player.play();
     } else if (player.currentId !== id) {
-      // console.log('有音乐，不是当前音乐');
+      // console.log('已存在该音乐，不是当前音乐');
       player.switch(id).then(() => {
         player.play();
       });
     }
   }, [id]);
+
+  useEffect(() => {
+    const unsubscribeListLength = player.subscribe(PlayerEventType.LIST_CHANGE, () => {
+      setListLength(player.getList().length);
+    });
+
+    const unsubscribeError = player.subscribe(PlayerEventType.ERROR, (err: PlayerError) => {
+      if (err.type === PlayerErrorType.SRC_NO_EXIST) {
+        Modal.confirm('该歌曲暂不支持播放', { showCancelButton: false }).then(() => {
+          if (listLength === 1) {
+            history.goBack();
+          }
+          if (player.currentId) player.remove([player.currentId]);
+        });
+      }
+    });
+    
+    return () => {
+      unsubscribeError();
+      unsubscribeListLength();
+    };
+  }, [history, listLength]);
 
   useEffect(() => {
     const unsubscribeMusicReady = player.subscribe(PlayerEventType.MUSIC_INFO_UPDATE, (music: Music | null) => {
@@ -64,17 +90,10 @@ function Song () {
       setIsPlaying(false);
     });
 
-    const unsubscribeError = player.subscribe(PlayerEventType.ERROR, (err: PlayerError) => {
-      if (err.type === PlayerErrorType.SRC_NO_EXIST) {
-        Toast.info('该歌曲暂不支持播放');
-      }
-    });
-
     return () => {
       unsubscribeMusicReady();
       unsubscribePlay();
       unsubscribePause();
-      unsubscribeError();
     };
   }, [history]);
 

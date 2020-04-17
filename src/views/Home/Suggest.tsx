@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios, { Canceler } from 'axios';
 import { useHistory } from 'react-router';
 import { AppState } from 'store';
 import { useDebounce } from 'scripts/hooks';
@@ -8,16 +7,11 @@ import { getSearchSuggest } from 'api/search';
 import { getSearchValueAction } from 'store/modules/search/actions';
 import 'styles/Suggest.scss';
 
-// 取消Axios请求
-let suggestRequestCancel: Canceler | null;
-
 interface ISearchSuggestItem {
   keyword: string;
 }
 
 function Suggest() {
-  // console.log('Suggest render');
-
   const [list, setList] = useState<Array<ISearchSuggestItem>>([]);
 
   const value: string = useSelector((state: AppState) => {
@@ -31,30 +25,20 @@ function Suggest() {
   const history = useHistory();
 
   useEffect(() => {
-    if (debounceValue) {
-      getSearchSuggest(debounceValue, {
-        cancelToken: new axios.CancelToken((cancel: Canceler) => {
-          suggestRequestCancel = cancel;
-        })
-      }).then(res => {
-        const { data } = res;
-        if (data.code === 200) {
-          const list: Array<ISearchSuggestItem> = data.result.allMatch ? data.result.allMatch : [];
-          setList(list);
-        }
-      }).catch(err => {
-        console.log(err);
-      });
-    }
-  }, [debounceValue]);
-
-  // 组件销毁时取消还在进行的请求
-  useEffect(() => {
+    if (!debounceValue) return;
+    const [ request, canceler ] = getSearchSuggest(debounceValue);
+    request.then(res => {
+      const { data } = res;
+      if (data.code === 200) {
+        const list: Array<ISearchSuggestItem> = data.result.allMatch ? data.result.allMatch : [];
+        setList(list);
+      }
+    });
+    
     return () => {
-      if (suggestRequestCancel !== null) suggestRequestCancel();
-      suggestRequestCancel = null;
+      canceler && canceler();
     };
-  }, []);
+  }, [debounceValue]);
 
   // 前往Search页面
   const navigateToSearch = function (keyword: string): void {
