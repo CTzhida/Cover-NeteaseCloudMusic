@@ -75,6 +75,9 @@ class Player {
     }
   }
 
+  // 能否通过脚本自动播放音乐 (Chrome与Safari会要求用户触发点击事件后才能使用audio的autoplay)
+  private canAutoplay: boolean = false;
+
   // Audio 实例
   audio: HTMLAudioElement;
 
@@ -186,7 +189,9 @@ class Player {
   // 播放
   play () {
     if (this.isPlaying || !this.current?.src) return false;
-    this.audio.play().catch((err) => {
+    this.audio.play().then(() => {
+      this.canAutoplay = true;
+    }).catch((err) => {
       this.handleListeners(PlayerEventType.ERROR, {
         type: PlayerErrorType.CANNOT_AUTO_PLAY,
         detail: err.message
@@ -281,6 +286,14 @@ class Player {
         play && this.play();
       });
     }
+  }
+
+  // 预播放
+  preplay () {
+    if (this.canAutoplay) return;
+    this.audio.play().catch(e => {
+      console.log(e);
+    });
   }
 
   // 订阅事件

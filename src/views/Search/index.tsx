@@ -9,6 +9,7 @@ import Songs from './Songs';
 import { querySearchMusic } from 'api/search';
 import 'styles/Search.scss';
 import Toast from 'components/Toast';
+import player from 'components/Player';
 import { Canceler } from 'axios';
 
 interface ISearchProps extends RouteChildrenProps {
@@ -116,6 +117,7 @@ class Search extends Component<ISearchProps, ISearchState> {
   }
 
   handleSelectSong (item: SongItemType) {
+    player.preplay();
     if (item.fee === 1) {
       Toast.info('该歌曲无法试听');
     } else {

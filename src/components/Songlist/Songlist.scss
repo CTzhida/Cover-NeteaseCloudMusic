@@ -40,7 +40,10 @@ $duration: .4s;
     -webkit-overflow-scrolling: touch;
     // 头部
     .title {
-      padding: rpx(20) rpx($wrapperSpace);
+      $height: rpx(90);
+      height: $height;
+      min-height: $height;
+      padding: 0 rpx($wrapperSpace);
       display: flex;
       align-items: center;
       justify-content: space-between;

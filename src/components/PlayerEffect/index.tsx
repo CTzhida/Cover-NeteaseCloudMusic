@@ -21,6 +21,7 @@ function PlayerEffect () {
 
 
   const location = useLocation();
+
   // 监听播放错误，直接播放下一首
   useEffect(() => {
     const unsubscribeError = player.subscribe(PlayerEventType.ERROR, (err: PlayerError) => {
@@ -32,6 +33,7 @@ function PlayerEffect () {
       unsubscribeError();
     };
   }, [location]);
+
   return null;
 }
 

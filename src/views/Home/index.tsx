@@ -11,8 +11,10 @@ import { getNewSong, getPersonalized } from 'api/song';
 import { getNewSongsAction, getRemdSongsAction } from 'store/modules/song/action';
 import Toast from 'components/Toast';
 import { displayPlayCount } from 'scripts/utils';
+import player from 'components/Player';
 
 import 'styles/Home.scss';
+
 
 const SearchActivePage = memo(function () {
   const searchValueIsEmpty: boolean = useSelector((state: AppState) => state.search.value.length === 0);
@@ -72,6 +74,7 @@ const Main = memo(function () {
   const history = useHistory();
 
   const handleSongSelect = (item: SongItemType) => {
+    player.preplay();
     if (item.fee === 1) {
       Toast.info('该歌曲无法试听');
     } else {

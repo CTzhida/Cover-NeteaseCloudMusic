@@ -131,6 +131,7 @@ function Playlist () {
 
   // 播放单曲
   const handleSongSelect = (song: SongItemType) => {
+    player.preplay();
     if (song.fee === 1) {
       Toast.info('该歌曲无法试听');
     } else {
@@ -140,6 +141,7 @@ function Playlist () {
 
   // 播放全部
   const handlePlayAll = () => {
+    player.preplay();
     const ids: Array<number> = [];
     if (!pyListData) return;
     pyListData.list.forEach((e: { id: number, fee: number}) => {
@@ -164,7 +166,7 @@ function Playlist () {
   return (
     <div className="play-list">
       { 
-        !pyListData ? <Loading><div>正在加载</div></Loading> :
+        !pyListData ? <Loading /> :
         (
         <Fragment>
           <div className="play-list-header">
