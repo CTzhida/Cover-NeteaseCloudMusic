@@ -23,8 +23,8 @@ const SearchActivePage = memo(function () {
   );
 });
 
-
 let dataRequested: boolean = false;
+
 const Main = memo(function () {
   const remds: Array<IRemdSong> = useSelector((state: AppState) => state.song.remdSongs);
 
