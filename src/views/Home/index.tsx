@@ -117,9 +117,6 @@ const Main = memo(function () {
   );
 });
 
-
-
-
 function Home () {
   const isActive: boolean = useSelector((state: AppState) => state.search.isActive);
   return (

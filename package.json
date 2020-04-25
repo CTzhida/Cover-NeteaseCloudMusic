@@ -3,7 +3,7 @@
   "author": "Lz7",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://47.106.244.102:9001",
+  "proxy": "https://music.lz7dev.top:9001",
   "dependencies": {
     "@react-hook/debounce": "^1.0.11",
     "@testing-library/jest-dom": "^4.2.4",

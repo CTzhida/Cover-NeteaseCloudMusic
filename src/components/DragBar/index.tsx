@@ -69,7 +69,6 @@ function DragBar (props: IDragBarProps) {
       <div className="bar" style={{ width: isDrag ? `${progress}%` : `${props.percent}%` }}></div>
       <div 
         className="ball" 
-        draggable
         style={{ left: isDrag ? `${progress}%` : `${props.percent}%` }}
         onTouchStart={ handleTouchStart }
         onTouchEnd={ handleTouchEnd }

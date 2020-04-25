@@ -56,11 +56,7 @@ type PyListData = {
 }
 
 // 缓存数据避免返回该页时又重新获取了
-const storageRequestData: {
-  id: number | null;
-  thide: boolean;
-  pyListData: PyListData | null;
-} = {
+const storageRequestData: { id: number | null; thide: boolean; pyListData: PyListData | null; } = {
   id: null,
   thide: false,
   pyListData: null

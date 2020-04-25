@@ -65,6 +65,7 @@ class Player {
         }
       }
     ];
+
     audioEvents.forEach(item => {
       audio.addEventListener(item.eventType, item.handler.bind(this));
     });
@@ -152,15 +153,21 @@ class Player {
   add (ids: Array<number>) {
     const addIds = ids.filter((id: number) => !this.has(id));
     if (addIds.length === 0) return false;
+
     const musicList: Array<Music> = addIds.map((id: number) => {
       return new Music(id);
     }).reverse();
+
     this.list = [...musicList, ...this.list];
+
     Music.readyAll(this.list).then(() => {
       this.handleListeners(PlayerEventType.LIST_CHANGE);
     });
+
     this.refreshRandomList();
+
     playerStorage.saveList(this.list.map((music: Music) => music.id));
+    
     this.handleListeners(PlayerEventType.LIST_CHANGE);
   }
 
