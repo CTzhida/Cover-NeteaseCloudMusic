@@ -1,4 +1,4 @@
-# Cover 网易云音乐H5
+# Cover 网易云音乐APP
   - Typescript
   - React
   - Redux
@@ -8,9 +8,6 @@
 
 ## Preview Address
   - https://47.106.244.102
-
-## Github
-  - https://github.com/lz7git/Cover-NeteaseCloudMusic
 
 ## 前言
 
@@ -264,3 +261,6 @@ function App () {
 <div style="text-align: center">
   <img src="http://47.106.244.102:9002/images/emoji01.png" style="width: 100px;"/>
 </div>
+
+## 源码
+  - https://github.com/lz7git/Cover-NeteaseCloudMusic
