@@ -1,4 +1,4 @@
-# Cover 网易云音乐APP
+# 使用
   - Typescript
   - React
   - Redux
@@ -253,6 +253,30 @@ function App () {
   )
 }
 ```
+
+## 关于适配
+rem，这里用的计算方式是按照设计图750px的标准得出的相对值，如果超出了设计图宽度，则按照设计图宽度来计算
+```javascript
+let designWidth = 750; // 设计图宽度
+let devicePixelWidth = window.screen.width; // 设备宽度独立像素
+let width = devicePixelWidth > designWidth ? designWidth : devicePixelWidth; // 计算宽度
+let fontSize = width / designWidth * 100;
+document.documentElement.style.fontSize = `${fontSize}px`;
+document.body.style.fontSize = '0.28rem'; // 给个默认的字体大小
+```
+##### 为什么上面要给 fontSize * 100?
+假如设备独立像素为375，则根元素的 fontSize 就是0.5px，在部分移动端浏览器中默认限制了最小文字尺寸，导致页面所有的尺寸都会按照最小文字尺寸的比例显示 (例如：默认最小文字尺寸10px，css设置了是30rem)，则渲染出来则是300px，所以，为了避开上诉所讲的情况，这里把 fontSize 再扩大100倍，然后设置rem的时候，再减少100倍。
+```scss
+// 别问我为什么叫rpx，我只是觉得rpx好使
+@function rpx ($style) {
+  @return $style / 100 + rem;
+}
+
+body {
+  font-size: rpx(30);
+}
+```
+
 
 ## 结语
 上面的代码是经过删减的，重要的是思路，希望能帮助到大家。
