@@ -7,7 +7,7 @@
  - 网易云API(非常感谢)：https://github.com/Binaryify/NeteaseCloudMusicApi.git
 
 ## Preview Address
-  - https://47.106.244.102
+  - http://47.106.244.102
 
 ## 前言
 
