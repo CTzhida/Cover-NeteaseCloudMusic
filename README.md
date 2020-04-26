@@ -16,7 +16,7 @@
 
 ## 搜索防抖
 <div style="text-align: center">
-  <img src="http://47.106.244.102:9002/images/1.gif" style="height: 600px;"/>
+  <img src="https://user-gold-cdn.xitu.io/2020/4/25/171b1e4ee9bad9b8?w=304&h=640&f=gif&s=377839" style="height: 600px;"/>
 </div>
 
 
@@ -61,7 +61,7 @@ function App () {
 
 ## 关键字高亮
 <div style="text-align: center">
-  <img src="http://47.106.244.102:9002/images/5.jpg" style="height: 600px;"/>
+  <img src="https://user-gold-cdn.xitu.io/2020/4/25/171b1e4ee9a84c71?w=1080&h=2337&f=jpeg&s=150929" style="height: 600px;"/>
 </div>
 
 ```javascript
@@ -105,7 +105,7 @@ function App () {
 
 ## 拖拽条
 <div style="text-align: center">
-  <img src="http://47.106.244.102:9002/images/4.gif" style="height: 600px;"/>
+  <img src="https://user-gold-cdn.xitu.io/2020/4/25/171b1e4ee9c008af?w=304&h=640&f=gif&s=905335" style="height: 600px;"/>
 </div>
 
 ```javascript
@@ -178,7 +178,7 @@ function App () {
 ```
 【交互优化】为何摸得如此舒服？答案在下面的图片里...
 <div style="text-align: center">
-  <img src="http://47.106.244.102:9002/images/6.png" style="width: 600px;"/>
+  <img src="https://user-gold-cdn.xitu.io/2020/4/25/171b1e4eeb8bb60b?w=716&h=232&f=png&s=67970" style="width: 600px;"/>
 </div>
 
 ## 播放模块
@@ -279,11 +279,13 @@ body {
 
 
 ## 结语
-上面的代码是经过删减的，重要的是思路，希望能帮助到大家。
+##### Q：为什么上面的代码不是TS？
+##### A：上面的代码是经过删减的，同时也为了照顾还没有接触到TS的朋友，重要的是思路，希望能帮助到大家。
+
 项目的内容不多，贵在实践。
 再次感谢 API 提供者 <a href="https://github.com/Binaryify">Binaryify</a> (PS: 开局一个API，字段全靠猜)，不过还是打从心里感谢！
 <div style="text-align: center">
-  <img src="http://47.106.244.102:9002/images/emoji01.png" style="width: 100px;"/>
+  <img src="https://user-gold-cdn.xitu.io/2020/4/25/171b1e4efa3cdd12?w=236&h=200&f=png&s=65222" style="width: 100px;"/>
 </div>
 
 ## 源码
