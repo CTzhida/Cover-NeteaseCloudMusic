@@ -8,6 +8,7 @@
   right: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   @include safe-area-inset(padding-bottom, bottom);
   .home-item-name {
     position: relative;
